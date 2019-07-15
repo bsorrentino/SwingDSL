@@ -35,7 +35,8 @@ inline fun JPanel.label(label: String = "", init: JLabel.() -> Unit): JLabel = J
 
 
 inline fun <reified T> resource(resourceDestination: String): URL {
-    return T::class.java.getResource(resourceDestination)
+    return T::class.javaClass.classLoader.getResource(resourceDestination);
+    //return T::class.java.getResource(resourceDestination)
 }
 
 fun rectangle(x: CoordinateX = 0, y: CoordinateY = 0, dimension: Dimension): Rectangle = Rectangle(x, y, dimension.width, dimension.height)

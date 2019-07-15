@@ -13,10 +13,10 @@ class PirateWarshipLoginForm : JFrame() {
 
     private lateinit var usernameTextField: JTextField
     private lateinit var passwordTextField: JTextField
+
     private val backgroundImage by lazy {
 
-        val img = javaClass.classLoader.getResource("PirateShip.gif")
-        ImageIcon( img )
+        ImageIcon( resource<PirateWarshipLoginForm>("PirateShip.gif") )
     }
 
     private fun validateUser(username: String, password: String): Boolean {
