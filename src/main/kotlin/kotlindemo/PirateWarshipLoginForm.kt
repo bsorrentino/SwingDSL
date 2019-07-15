@@ -14,7 +14,9 @@ class PirateWarshipLoginForm : JFrame() {
     private lateinit var usernameTextField: JTextField
     private lateinit var passwordTextField: JTextField
     private val backgroundImage by lazy {
-        ImageIcon(resource<PirateWarshipLoginForm>("../res/PirateShip.gif"))
+
+        val img = javaClass.classLoader.getResource("PirateShip.gif")
+        ImageIcon( img )
     }
 
     private fun validateUser(username: String, password: String): Boolean {
@@ -26,7 +28,7 @@ class PirateWarshipLoginForm : JFrame() {
      */
     init {
         frame(title = "Pirate Warships") {
-            defaultCloseOperation = JFrame.EXIT_ON_CLOSE
+            defaultCloseOperation = EXIT_ON_CLOSE
             bounds = rectangle(dimension = 640 x 400)
             isResizable = false
             isVisible = true
@@ -127,3 +129,5 @@ class PirateWarshipLoginForm : JFrame() {
         }
     }
 }
+
+

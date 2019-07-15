@@ -106,7 +106,7 @@ public class PirateWarshipLoginForm extends JFrame {
         background.setHorizontalTextPosition(SwingConstants.CENTER);
         background.setHorizontalAlignment(SwingConstants.CENTER);
         background.setBounds(0, 0, 640, 400);
-        ImageIcon icon = new ImageIcon(PirateWarshipLoginForm.class.getResource("../res/PirateShip.gif"));
+        ImageIcon icon = new ImageIcon(PirateWarshipLoginForm.class.getClassLoader().getResource("PirateShip.gif"));
         background.setIcon(icon);
 
         contentPane.add(background);
