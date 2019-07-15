@@ -1,5 +1,6 @@
 .DS_Store
 target/
+beansbinding-1.2.1-javadoc/
 
 # Compiled class file
 *.class
