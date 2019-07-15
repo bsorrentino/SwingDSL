@@ -1,18 +1,28 @@
 package kotlindemo
 
 import dsl.*
+import org.jdesktop.beansbinding.BeanProperty
 import java.awt.Color
 import java.awt.EventQueue.invokeLater
 import java.lang.Exception
 import javax.swing.*
 import javax.swing.border.EmptyBorder
 import javax.swing.border.LineBorder
+import org.jdesktop.beansbinding.AutoBinding.UpdateStrategy
+import org.jdesktop.beansbinding.AutoBinding
+import org.jdesktop.beansbinding.Bindings
+
+
+data class Credentials( var user:String = "", var password:String = "" )
 
 
 class PirateWarshipLoginForm : JFrame() {
 
-    private lateinit var usernameTextField: JTextField
-    private lateinit var passwordTextField: JTextField
+
+    val credentials = Credentials( user = "user" );
+
+    var user = BeanProperty.create<Credentials,String>("user");
+    var password = BeanProperty.create<Credentials,String>("password");
 
     private val backgroundImage by lazy {
 
@@ -23,10 +33,12 @@ class PirateWarshipLoginForm : JFrame() {
         return username == "user" && password == "user"
     }
 
+
     /**
      * Create the frame.
      */
     init {
+
         frame(title = "Pirate Warships") {
             defaultCloseOperation = EXIT_ON_CLOSE
             bounds = rectangle(dimension = 640 x 400)
@@ -56,7 +68,7 @@ class PirateWarshipLoginForm : JFrame() {
                     }
                 }
 
-                usernameTextField = textfield {
+                val usernameTextField = textfield( source = credentials, property = user ) {
                     font = boldFont("Arial Black", 11)
                     isOpaque = false
                     border = LineBorder(Color(0, 0, 0), 1, true)
@@ -64,18 +76,20 @@ class PirateWarshipLoginForm : JFrame() {
                     columns = 10
                 }
 
+
                 label("User") {
                     font = boldFont("Ariel")
                     text = blackText("User:")
                     bounds = rectangle(10, 66, 46 x 14)
                 }
 
-                passwordTextField = textfield {
+                val passwordTextField = passwordfield( source = credentials, property = password ) {
                     font = boldFont("Arial Black", 11)
                     isOpaque = false
                     border = LineBorder(Color(0, 0, 0), 1, true)
                     bounds = rectangle(10, 137, 115 x 20)
                     columns = 10
+
                 }
 
                 label("Password") {
@@ -90,6 +104,7 @@ class PirateWarshipLoginForm : JFrame() {
                     bounds = rectangle(dimension = 640 x 400)
                     icon = backgroundImage
                 }
+
             }
         }
     }
@@ -103,7 +118,9 @@ class PirateWarshipLoginForm : JFrame() {
             }
 
             invokeLater {
-                PirateWarshipLoginForm()
+
+                val form = PirateWarshipLoginForm()
+
             }
         }
 
@@ -117,8 +134,8 @@ class PirateWarshipLoginForm : JFrame() {
     }
 
     private fun JPanel.tryToLogin() {
-        val username = usernameTextField.text
-        val password = passwordTextField.text
+        val username = credentials.user
+        val password = credentials.password
 
         if (validateUser(username, password)) {
             JOptionPane.showMessageDialog(this, "Login successful.", "Information", JOptionPane.INFORMATION_MESSAGE)
